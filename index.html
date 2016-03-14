@@ -1,1 +1,52 @@
-s
+<!doctype html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8"/>
+		<title>TestZone</title>
+		<script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+		<style type="text/css">
+			body{
+				margin : 0;
+			}
+		</style>
+</head>
+
+<body>
+<script src="board.js"></script>	
+<script type="text/javascript">
+
+var BACKGROUND = -2, HIGHLIGHT = -1;
+game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var count = 0;
+
+function preload()
+{
+	game.load.image('background', "assets/temp_background.png");
+	game.load.image('card_highlight', "assets/highlight.png");
+	game.load.image('card_back', "assets/card_back.png");
+
+}
+
+function create()
+{
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	
+	//Add the highlight but hide it
+	
+	var myimage = game.add.sprite(0, 0, 'background');
+	myimage.z = -2;
+	myimage.scale.setTo(2.7, 4);
+	factoryCreate();
+}
+
+function update()
+{		
+	//Collide pointer with cards
+
+	redraw();
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script src="index.js"></script>
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() 
+{
+	game.load.image('sky', "assets/sky.png");
+	game.load.image("ground", "assets/platform.png");
+	game.load.image("star", "assets/star.png");
+	//Must be width and height of each sprite as well.
+	game.load.spritesheet('dude', "assets/dude.png", 32, 48);
+}
+
+var platforms;
+
+function create() 
+{
+	
+	//Enables keyboard inputs
+	cursors = game.input.keyboard.createCursorKeys();
+	
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	
+	game.add.sprite(0, 0,'sky');
+	
+	//Not sure what this does....I guess it's a group of objects?
+	platforms = game.add.group();
+	//Let's see how much we can figure out on our own
+	stars = game.add.group();
+	stars.enableBody = true;
+	
+	for(var i = 0; i < 12; i ++)
+	{
+		var star = stars.create(i * 70, 0, 'star');
+		
+		star.body.gravity.y = 6;
+		star.body.bounce.y = 0.7 * Math.random() * 0.2; 
+	}
+	
+	//Enables the physics on this particular grounp
+	platforms.enableBody = true;
+	
+	//It seems to be that...so I'm making the ground here and also adding 
+	//it to the platforms group...interesting and useful
+	var ground = platforms.create(0, game.world.height - 64, 'ground');
+	
+	//Meh
+	ground.scale.setTo(2, 2);
+	
+	ground.body.immovable = true;
+	
+	var ledge = platforms.create(400, 400, 'ground');
+	ledge.body.immovable = true;
+	ledge = platforms.create(-150, 250, 'ground');
+	ledge.body.immovable = true;
+	
+	//Adding the player in....really going to want to delegate this at some point
+	//Remember this is now a global variable
+	player = game.add.sprite(32, game.world.height - 550, 'dude');
+	
+	//Enabling physics on the player
+	game.physics.arcade.enable(player);
+	
+	//Change physics data, check out more later
+	player.body.bounce.y = 0.2;
+	player.body.gravity.y = 300;
+	player.body.collideWorldBounds = true;
+	
+	//Animation goes as such, name of animation, frames used, delay between frames and loop yes or no
+	player.animations.add('left', [0, 1, 2, 3], 10, true);
+	player.animations.add('right', [5, 6, 7,8],10, true);
+	
+}
+
+
+
+//Happens every frame
+function update() 
+{
+	//Meh, this would be better to do via a physcs computation maybe
+	player.body.velocity.x = 0;
+	
+	//Interesting, so we call the collide on any two groups or sprites, in this
+	//case we're only checking these two...dang
+	game.physics.arcade.collide(player, platforms);
+	game.physics.arcade.collide(platforms, stars);
+	
+	//This checks an overlap but doesn't collide
+	//Collect star is the method in question that is called
+	//Cool also can add another function to be called before calling collect star
+	game.physics.arcade.overlap(player, stars, collectStar, additionalCheck, "index.js");
+	//game.physics.arcade.overlap(player, stars, collectStar, additionalCheck, this);
+	if(cursors.left.isDown)
+	{
+		player.body.velocity.x = -150;
+		
+		player.animations.play("left");
+	}
+	else if(cursors.right.isDown)
+	{
+		player.body.velocity.x = 150;
+		
+		player.animations.play("right");
+	}
+	else 
+	{
+		player.animations.stop();
+		player.frame = 4;//4th frame is idle
+	}
+	//long but nice syntax, also I like the way of collision checking, plus I can check down left right or up
+	if(cursors.up.isDown && player.body.touching.down)
+	{
+		player.body.velocity.y = -350;
+	} 
+}
+
+
+
+</script>
+
+</body>
+</html>
