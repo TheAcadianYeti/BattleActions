@@ -1,9 +1,8 @@
 //The javascript handling all board elements, draws the board
 //etc
 //Declare a board group...or should it be declared in the main thing...naw
-//var playerOneHand = game.add.group();
 var X_OFFSET = 100, HIGHLIGHT_OFFSET = 5;
-var currentCard = null;
+var currentCard = null, playerOne;
 function factoryCreate()
 {
 	playerOneHand = game.add.group();
@@ -52,15 +51,6 @@ function createHands()
 //Silly redraw function for now, just moves stuff to the right and redraws it
 function redraw()
 {
-	if(currentCard != null)
-	{
-		highlight.visible = true;
-		//Move highlight to the appropriate position and draw
-		highlight.x = currentCard.x - HIGHLIGHT_OFFSET;
-		highlight.y = currentCard.y - HIGHLIGHT_OFFSET;
-		allVisible.sort("z", Phaser.Group.SORT_ASCENDING);
-	}
-	/*
 	for(var i = 0; i < playerOneHand.children.length; i++)
 	{
 		playerOneHand.children[i].x += 5;
@@ -69,13 +59,23 @@ function redraw()
 			playerOneHand.children[i].x = 0;
 		}
 	}
-	*/
+	
+	if(currentCard != null)
+	{
+		highlight.visible = true;
+		//Move highlight to the appropriate position and draw
+		highlight.x = currentCard.x - HIGHLIGHT_OFFSET;
+		highlight.y = currentCard.y - HIGHLIGHT_OFFSET;
+		allVisible.sort("z", Phaser.Group.SORT_ASCENDING);
+	}
+	
+
+	
 }
 
 function hoveringOverCard(card)
 {
 	currentCard = card;
-
 }
 
 
