@@ -9,9 +9,9 @@ var hand = [handSize];
 var card = {id:"0"}
 //push as many cards as equal to the decksize variable, this builds the deck
 for(var i = 0; i < deckSize; i++)
-	{
+{
 		deck.push({id: i});
-	}
+}
    
 //shuffle that deck up good
 function shuffleDeck()
@@ -37,7 +37,7 @@ function shuffleDeck()
 //pop a number of cards = to the hand size variable
 function dealHand()
 {
-	for(j = 0; j < handSize; j++)
+	for(var j = 0; j < handSize; j++)
 	{
 		//hand array gets the return from the deck pop
 		drawCard();	
@@ -54,7 +54,7 @@ function drawCard()
 	//mill a number of cards off of the deck
 function burnCards(x)
 {
-	for(l = 0; l < x; l++)
+	for(var l = 0; l < x; l++)
 	{
 		deck.pop();
 	}
