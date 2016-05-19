@@ -5,8 +5,10 @@ var X_OFFSET = 100, HIGHLIGHT_OFFSET = 5;
 var currentCard = null, playerOne;
 function factoryCreate()
 {
-	playerOneHand = game.add.group();
-	playerTwoHand = game.add.group();
+	
+	shdjbuaduhdfsa
+	playerHand = game.add.group();
+	playerTwoHand aisudgyqwgfquyewgfquyewgdyweqdqjuyew = game.add.group();
 	allVisible = game.add.group();
 	
 	
