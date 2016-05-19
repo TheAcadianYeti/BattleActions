@@ -56,7 +56,7 @@ function redraw()
 		playerOneHand.children[i].x += 5;
 		if(playerOneHand.children[i].x >= game.width)
 		{
-			playerOneHand.children[i].x = 0;
+			playerOneHand.children[i].x = -50;
 		}
 	}
 	
