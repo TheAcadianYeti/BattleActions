@@ -13,3 +13,4 @@
       * HP
       * Speed/Initiative
       * Img/Face
+/play butts
