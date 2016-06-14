@@ -13,9 +13,3 @@
       * HP
       * Speed/Initiative
       * Img/Face
-
-
-
-
-
-//Future idea boss cards, always on point, or big cards etc
