@@ -1,7 +1,8 @@
-# Week 1:
-  ## Patrick
+# Week 1
+## Patrick
   * Work on having a card highlighting, centered and grow when hovered, shrink when not.
-  ## Austin 
+  
+## Austin
   * Work on board aesthetics, as well as a card object with all proper stats
     * Things each card should have
       * Class
